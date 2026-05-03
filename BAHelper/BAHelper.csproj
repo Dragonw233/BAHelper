@@ -1,26 +1,23 @@
-﻿<Project Sdk="Dalamud.CN.NET.Sdk/14.0.0">
+﻿<Project Sdk="Dalamud.CN.NET.Sdk/15.0.0">
 	<PropertyGroup>
-		<LangVersion>preview</LangVersion>
 		<Nullable>annotations</Nullable>
 		<OutputPath>bin\$(Configuration)\</OutputPath>
 		<GenerateDependencyFile>false</GenerateDependencyFile>
-		<PackageVersion_Dalamud_NET_Sdk>14.0.1</PackageVersion_Dalamud_NET_Sdk>
-		<PackageVersion_DalamudPackager>14.0.1</PackageVersion_DalamudPackager>
 	</PropertyGroup>
     <PropertyGroup>
-		<Version>7.40.0.0</Version>
+		<Version>7.50.0.0</Version>
 		<Author>iVeigar</Author>
 		<Name>兵武塔助手</Name>
 		<Punchline>让兵武塔车头和功能位轻松一点点</Punchline>
-		<Description>提供了一些攻略兵武塔时解放大脑和双手的功能：\n - 门图\n - 监控附近玩家状态\n - 一键检查队员补正数值\n - 自动上双盾\n - 扫雷助手、找一查箱子\n - 画出怪物仇恨范围</Description>
+		<Description>提供了一些攻略兵武塔时解放大脑和双手的功能：&#10; - 门图&#10; - 监控附近玩家状态&#10; - 一键检查队员补正数值&#10; - 自动上双盾&#10; - 扫雷助手、找一查箱子&#10; - 画出怪物仇恨范围</Description>
 		<Tags>BA;兵武塔;Eureka;优雷卡</Tags>
 		<CategoryTags>utility</CategoryTags>
 		<RepoUrl>https://github.com/iVeigar/BAHelper</RepoUrl>
 		<IconUrl>https://raw.githubusercontent.com/iVeigar/MyDalamudPlugins/master/plugins/BAHelper/images/icon.png</IconUrl>
 		<AcceptsFeedback>true</AcceptsFeedback>
-		<Changelog>update api14</Changelog>
+		<Changelog>update api15; 有待测试是否可用，此次更新仅保证能加载</Changelog>
 	</PropertyGroup>
     <ItemGroup>
-        <PackageReference Include="ECommons" Version="3.1.0.1" />
+        <PackageReference Include="ECommons" Version="3.2.0.15" />
     </ItemGroup>
 </Project>

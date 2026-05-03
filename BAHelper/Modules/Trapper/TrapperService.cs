@@ -83,7 +83,7 @@ public sealed class TrapperService : IDisposable
         }
     }
 
-    private void OnTerritoryChanged(ushort t) => Reset();
+    private void OnTerritoryChanged(uint t) => Reset();
 
     public void Reset()
     {
@@ -233,7 +233,7 @@ public sealed class TrapperService : IDisposable
     private static bool CheckMobObject(IGameObject obj, out MobObject? mobObject)
     {
         mobObject = null;
-        if (!obj.IsValid() || obj is not IBattleNpc bnpc || !bnpc.BattleNpcKind.Equals(BattleNpcSubKind.Enemy))
+        if (!obj.IsValid() || obj is not IBattleNpc bnpc || !bnpc.BattleNpcKind.Equals(BattleNpcSubKind.Combatant))
             return false;
 
         if (bnpc.IsDead() || bnpc.InCombat())
