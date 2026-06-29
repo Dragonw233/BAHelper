@@ -17,6 +17,21 @@ public class Configuration : IPluginConfiguration
     public int ShieldRemainingTimeThreshold = 15; // minutes
 
     public bool ElementLevelReminderEnabled = true;
+    public bool PlayerHighlightEnabled = false;
+    public float PlayerHighlightDistance = 50f;
+    public float PlayerHighlightCircleRadius = 0.8f;
+    public bool PlayerHighlightShowName = true;
+    public bool PlayerHighlightShowMatchedRules = true;
+    public bool PlayerHighlightHeroEnabled = true;
+    public bool PlayerHighlightPerceptionEnabled = true;
+    public bool PlayerHighlightIncenseEnabled = true;
+    public bool PlayerHighlightTankStanceEnabled = true;
+    public bool PlayerHighlightMissingShellEnabled = true;
+    public uint PlayerHighlightHeroColor = Color.Yellow;
+    public uint PlayerHighlightPerceptionColor = Color.Cyan;
+    public uint PlayerHighlightIncenseColor = Color.Orange;
+    public uint PlayerHighlightTankStanceColor = Color.Magenta;
+    public uint PlayerHighlightMissingShellColor = Color.Blue;
 
     public bool AdvancedModeEnabled = false;
     public float TrapViewDistance = 100f;

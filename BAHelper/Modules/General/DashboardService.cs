@@ -163,5 +163,10 @@ public sealed class DashboardService
 
         return failed;
     }
-    private static string LogoActionsStr((uint, uint) logos) => $"{Common.LogoActionNames[logos.Item1]} {Common.LogoActionNames[logos.Item2]}".Trim();
+    private static string LogoActionsStr((uint, uint) logos) => $"{LogoActionName(logos.Item1)} {LogoActionName(logos.Item2)}".Trim();
+
+    private static string LogoActionName(uint logoActionId)
+    {
+        return Common.LogoActionNames.TryGetValue(logoActionId, out var name) ? name : string.Empty;
+    }
 }

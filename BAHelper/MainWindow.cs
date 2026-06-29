@@ -414,8 +414,46 @@ public sealed class MainWindow() : Window("兵武塔助手", ImGuiWindowFlags.Al
         if (ImGui.CollapsingHeader("杂项"))
         {
             save |= ImGui.Checkbox("进入水岛时提示当前等级", ref Config.ElementLevelReminderEnabled);
+            save |= ImGui.Checkbox("高亮附近玩家", ref Config.PlayerHighlightEnabled);
+            ImGui.SameLine();
+            ImGuiComponents.HelpMarker("在水岛内给附近其他玩家脚下绘制高亮圈，可选择是否显示玩家名");
+            if (Config.PlayerHighlightEnabled)
+            {
+                using (ImRaii.PushIndent())
+                {
+                    ImGui.SetNextItemWidth(200 * ImGuiHelpers.GlobalScaleSafe);
+                    save |= ImGui.SliderFloat("高亮范围", ref Config.PlayerHighlightDistance, 5f, 100f, Config.PlayerHighlightDistance.ToString("##.0m"));
+
+                    ImGui.SetNextItemWidth(200 * ImGuiHelpers.GlobalScaleSafe);
+                    save |= ImGui.SliderFloat("高亮圈半径", ref Config.PlayerHighlightCircleRadius, 0.4f, 5f, Config.PlayerHighlightCircleRadius.ToString("##.0m"));
+
+                    save |= ImGui.Checkbox("显示玩家名", ref Config.PlayerHighlightShowName);
+                    save |= ImGui.Checkbox("显示命中条件", ref Config.PlayerHighlightShowMatchedRules);
+
+                    ImGui.Separator();
+                    ImGui.Text("筛选条件");
+                    save |= DrawPlayerHighlightRule("豪杰", ref Config.PlayerHighlightHeroEnabled, ref Config.PlayerHighlightHeroColor, 12);
+                    save |= DrawPlayerHighlightRule("探景", ref Config.PlayerHighlightPerceptionEnabled, ref Config.PlayerHighlightPerceptionColor, 13);
+                    save |= DrawPlayerHighlightRule("激怒", ref Config.PlayerHighlightIncenseEnabled, ref Config.PlayerHighlightIncenseColor, 14);
+                    save |= DrawPlayerHighlightRule("盾姿", ref Config.PlayerHighlightTankStanceEnabled, ref Config.PlayerHighlightTankStanceColor, 15);
+                    save |= DrawPlayerHighlightRule("缺魔盾", ref Config.PlayerHighlightMissingShellEnabled, ref Config.PlayerHighlightMissingShellColor, 16);
+                }
+            }
         }
         if (save)
             Config.Save();
+    }
+
+    private static bool DrawPlayerHighlightRule(string label, ref bool enabled, ref uint color, int colorPickerId)
+    {
+        var save = ImGui.Checkbox(label, ref enabled);
+        ImGui.SameLine();
+        var colorV4 = color.ToVector4();
+        if (ImGuiUtils.ColorPickerWithPalette(colorPickerId, "", ref colorV4))
+        {
+            color = colorV4.ToUint();
+            save = true;
+        }
+        return save;
     }
 }

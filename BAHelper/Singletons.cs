@@ -7,6 +7,7 @@ namespace BAHelper;
 public static class Singletons
 {
     public static DashboardService DashboardService { get; private set; }
+    public static PlayerHighlightService PlayerHighlightService { get; private set; }
     public static TrapperService TrapperService { get; set; }
     public static PartyService PartyService { get; set; }
 }

@@ -75,7 +75,7 @@ public static class Common
 
     public static (uint, uint) CarriedLogoActions(this IPlayerCharacter? player)
     {
-        uint param = player?.StatusList?.FirstOrDefault(status => status!.StatusId == 1618, null)?.Param ?? 0;
+        uint param = player.TryGetStatus(1618, out var status) ? (uint)status.Param : 0;
         uint logo1 = param >> 8, logo2 = param & 0xFF;
         // 调整前后顺序,把记忆放在第一个
         if (!Wisdoms.ContainsKey(logo1) && Wisdoms.ContainsKey(logo2))
@@ -87,7 +87,37 @@ public static class Common
 
     public static bool IsDead(this IBattleChara chara) => chara.IsDead || chara.CurrentHp <= 0;
 
-    public static bool HasStatus(this IPlayerCharacter player, params uint[] statusIds) => player.StatusList.Any(status => status.StatusId.EqualsAny(statusIds));
+    public static bool HasStatus(this IPlayerCharacter player, params uint[] statusIds) => player.TryGetStatus(statusIds, out _);
+
+    public static bool TryGetStatus(this IPlayerCharacter? player, uint statusId, out Dalamud.Game.ClientState.Statuses.IStatus status)
+    {
+        return player.TryGetStatus([statusId], out status);
+    }
+
+    public static bool TryGetStatus(this IPlayerCharacter? player, uint[] statusIds, out Dalamud.Game.ClientState.Statuses.IStatus status)
+    {
+        status = null!;
+        if (player == null || statusIds.Length == 0)
+            return false;
+
+        try
+        {
+            foreach (var current in player.StatusList)
+            {
+                if (current != null && current.StatusId.EqualsAny(statusIds))
+                {
+                    status = current;
+                    return true;
+                }
+            }
+        }
+        catch
+        {
+            // 进塔/切图时远处玩家的状态列表可能还没稳定，跳过本帧即可。
+        }
+
+        return false;
+    }
     
     public static bool IsTankStanceActive(this IPlayerCharacter player) => player.HasStatus(79u, 91u, 743u, 1833u);
 
